@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.VedaReader" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">@font/app_font_family</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">#FAF6DA</item>
+        <item name="android:colorAccent">#9C5723</item>
+    </style>
+</resources>

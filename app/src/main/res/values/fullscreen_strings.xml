@@ -1,0 +1,5 @@
+<resources>
+    <string name="reader_enter_fullscreen">Enter fullscreen reading. Tap text to show exit, or press Back.</string>
+    <string name="reader_exit_fullscreen">Exit fullscreen reading</string>
+    <string name="reader_show_fullscreen_controls">Show fullscreen exit button</string>
+</resources>

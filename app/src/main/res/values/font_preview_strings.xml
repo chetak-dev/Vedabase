@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_font_preview_progress">%1$d%% of book</string>
+    <string name="reader_font_preview_progress_description">%1$d%% of book, approximate source-record progress, not printed pages</string>
+</resources>

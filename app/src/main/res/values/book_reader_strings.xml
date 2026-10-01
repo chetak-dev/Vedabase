@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_mode_verse">Scrolling text</string>
+    <string name="reader_mode_book">Book</string>
+    <string name="reader_switch_to_book">Switch to book reading</string>
+    <string name="reader_switch_to_verse">Switch to scrolling text</string>
+    <string name="reader_mode_now_book">Book mode is active</string>
+    <string name="reader_mode_now_scroll">Scroll mode is active</string>
+    <string name="reader_book_contents">Book contents</string>
+    <string name="reader_book_percent">%1$d%%</string>
+    <string name="reader_preparing_pages">Preparing pages…</string>
+    <string name="reader_preparing_contents">Preparing contents…</string>
+    <string name="reader_contents_error">Contents could not be prepared.</string>
+    <!-- Locations count source-ordered outline entries, including prose chunks, not screen or printed pages. -->
+    <string name="reader_book_progress">Location %1$d of %2$d</string>
+    <string name="reader_book_progress_description">Source section %1$d of %2$d in book order, not printed pages</string>
+    <string name="reader_book_location_unavailable">Location unavailable</string>
+    <string name="reader_book_seek">Go to a source location</string>
+    <string name="reader_book_controls_hint">Tap page to hide controls</string>
+    <string name="reader_hide_controls">Hide reading controls</string>
+    <string name="reader_show_controls">Show reading controls</string>
+    <string name="reader_previous_page">Previous reading page</string>
+    <string name="reader_next_page">Next reading page</string>
+    <string name="reader_close_contents">Close contents</string>
+</resources>

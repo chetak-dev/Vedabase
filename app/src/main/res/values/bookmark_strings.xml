@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared reader actions, accessibility state, and feedback. -->
+    <string name="bookmark_title">Bookmarks</string>
+    <string name="bookmark_add">Bookmark this position</string>
+    <string name="bookmark_remove">Remove bookmark</string>
+    <string name="bookmark_saved">Bookmark saved</string>
+    <string name="bookmark_removed">Bookmark removed</string>
+    <string name="bookmark_load_error">Bookmarks could not be loaded. Try again before making changes.</string>
+    <string name="bookmark_save_error">The bookmark change could not be saved. Try again.</string>
+    <string name="bookmark_limit_error">Your bookmark limit has been reached. Remove a bookmark you no longer need before adding another.</string>
+    <string name="bookmark_retry">Try again</string>
+    <string name="bookmark_marked_state">Bookmarked</string>
+    <string name="bookmark_unmarked_state">Not bookmarked</string>
+    <string name="bookmark_saving">Saving bookmark…</string>
+    <string name="bookmark_list_open">Open bookmarks</string>
+
+    <!-- Bookmark library screen. Existing Unicode titles and excerpts remain plain text. -->
+    <string name="bookmark_no_library">No active library</string>
+    <string name="bookmark_unnamed_library">Imported library</string>
+    <string name="bookmark_import_title">Import a library first</string>
+    <string name="bookmark_import_body">Open Library to import or select a library. Bookmarks are shown only for the active library; bookmarks from other libraries are kept.</string>
+    <string name="bookmark_back_to_library">Back to Library</string>
+    <string name="bookmark_empty_title">Keep a place in your reading</string>
+    <string name="bookmark_empty_body">While reading, press the bookmark icon to save that position. Your bookmarks for this library will appear here.</string>
+    <string name="bookmark_filter">Filter bookmarks</string>
+    <string name="bookmark_filter_hint">Book, reference, or excerpt</string>
+    <string name="bookmark_filter_clear">Clear filter</string>
+    <string name="bookmark_filter_empty_title">No matching bookmarks</string>
+    <string name="bookmark_filter_empty_body">Try another book, reference, or phrase. Latin accents are optional. Clearing the filter shows all bookmarks in this library.</string>
+    <string name="bookmark_newest_first">Newest saved first</string>
+    <string name="bookmark_loading">Loading bookmarks…</string>
+    <string name="bookmark_updating">Updating bookmarks…</string>
+    <string name="bookmark_error_title">Bookmarks need attention</string>
+    <string name="bookmark_saved_date">Saved %1$s</string>
+    <string name="bookmark_open_location">Open %1$s in %2$s</string>
+    <string name="bookmark_remove_location">Remove bookmark for %1$s in %2$s</string>
+    <string name="bookmark_remove_title">Remove this bookmark?</string>
+    <string name="bookmark_remove_body">%1$s\n%2$s\n\nOnly this saved position will be removed. The original text stays unchanged.</string>
+</resources>

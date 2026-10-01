@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_text_size">Text size</string>
+    <string name="reader_text_size_decrease">Decrease text size</string>
+    <string name="reader_text_size_increase">Increase text size</string>
+    <string name="reader_text_size_percent">%1$d%%</string>
+    <string name="reader_text_size_default">Default</string>
+    <string name="reader_text_size_reset">Reset text size to default (100%)</string>
+    <string name="reader_text_size_done">Done</string>
+    <string name="reader_text_size_preview">Hare Krishna\nहरे कृष्ण</string>
+</resources>

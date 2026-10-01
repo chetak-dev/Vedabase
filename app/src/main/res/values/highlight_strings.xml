@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_highlight">Highlight</string>
+    <string name="highlight_palette_new">Highlight colour</string>
+    <string name="highlight_palette_edit">Edit highlight</string>
+    <string name="highlight_color_yellow">Yellow</string>
+    <string name="highlight_color_green">Green</string>
+    <string name="highlight_color_blue">Blue</string>
+    <string name="highlight_color_pink">Pink</string>
+    <string name="highlight_remove">Remove</string>
+    <string name="highlight_saved">Highlight saved</string>
+    <string name="highlight_removed">Highlight removed</string>
+    <string name="highlight_failed">Couldn\'t save the highlight</string>
+    <string name="highlights_tab">Highlights</string>
+    <string name="bookmarks_tab">Bookmarks</string>
+    <string name="highlights_empty_title">No highlights yet</string>
+    <string name="highlights_empty_body">Select some text while reading and choose Highlight from the menu.</string>
+    <string name="highlight_remove_title">Remove highlight?</string>
+    <string name="highlight_remove_body">The highlight in %1$s will be removed from this device.</string>
+    <string name="highlight_open">Open highlight</string>
+    <string name="reader_note">Note</string>
+    <string name="note_add">Add a note</string>
+    <string name="note_edit">Edit note</string>
+
+    <string name="note_save">Save</string>
+    <string name="notes_tab">Notes</string>
+    <string name="notes_empty_title">No notes yet</string>
+    <string name="notes_empty_body">Select a passage while reading and choose Note to write your reflection beside it.</string>
+    <string name="more_title">More</string>
+    <string name="more_bookmarks_body">Pages you marked to return to</string>
+    <string name="more_highlights_body">Passages you coloured while reading</string>
+    <string name="more_notes_body">Your reflections written beside the text</string>
+</resources>

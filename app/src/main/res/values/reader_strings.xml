@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_back">Back to contents</string>
+    <string name="reader_loading">Opening the text…</string>
+    <string name="reader_error">This section could not be loaded. Try again or return to its contents.</string>
+    <string name="reader_offline">OFFLINE READER</string>
+    <string name="reader_previous_verse">Previous verse</string>
+    <string name="reader_next_verse">Next verse</string>
+    <string name="reader_previous_chapter">Previous chapter</string>
+    <string name="reader_next_chapter">Next chapter</string>
+    <string name="reader_previous_section">Previous</string>
+    <string name="reader_next_section">Next</string>
+    <string name="reader_swipe_hint">Swipe left for next · right for previous · scroll to read</string>
+    <string name="reader_choose_section">Choose a chapter or verse from the contents to start reading. Collections and books are not split into artificial pages.</string>
+    <string name="reader_large_section">This section is too large to open at once. Return to contents and choose a smaller subsection. No text has been truncated.</string>
+    <string name="reader_link_later">This link has no destination in the imported database.</string>
+    <string name="reader_link_audio_later">Audio links are not connected yet.</string>
+    <string name="reader_link_resolving">Opening reference…</string>
+    <string name="reader_popup_close">Close</string>
+    <string name="reader_popup_title">Note</string>
+    <string name="reader_unavailable_notice">Text reader · reference links and audio are coming later.</string>
+    <string name="reader_document">Section text</string>
+</resources>

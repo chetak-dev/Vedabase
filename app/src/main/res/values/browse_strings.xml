@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="browse_eyebrow">Contents</string>
+    <string name="browse_path">You are here</string>
+    <string name="browse_back">Back</string>
+    <string name="browse_home">Back to library</string>
+    <string name="browse_contents">Contents</string>
+    <string name="browse_loading">Loading contents…</string>
+    <string name="browse_error">The contents could not be loaded. Try again or go back.</string>
+    <string name="browse_leaf_title">You’ve reached an entry</string>
+    <string name="browse_leaf_body">There is nothing further here.</string>
+    <string name="browse_notice">Choose a chapter or text to continue.</string>
+    <string name="browse_entry">Text</string>
+    <string name="browse_untitled">Untitled · %1$d</string>
+    <string name="browse_open">Open %1$s</string>
+</resources>

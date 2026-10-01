@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="library_loading">Opening your library…</string>
+    <string name="library_load_error">The library could not be opened. Try again, or select the original database to import another copy.</string>
+    <string name="import_copying">Copying database · %1$d%%</string>
+    <string name="import_copying_unknown">Copying database…</string>
+    <string name="import_checking">Checking database integrity…</string>
+    <string name="import_finishing">Saving your library…</string>
+    <string name="import_cancelling">Cancelling and cleaning up…</string>
+    <string name="import_cancel_wait">A database check may need to finish before cancellation completes.</string>
+    <string name="import_space_error">There is not enough free storage for a private copy. Free some space and try again; your original has not been changed.</string>
+    <string name="import_invalid_error">This document is not a complete, supported Vedabase database. Choose the original .ivd file.</string>
+    <string name="import_incomplete_error">The file copy was incomplete. Select the original database again.</string>
+    <string name="import_storage_error">The library could not be saved. Check available storage and try again.</string>
+    <string name="import_open_error">The document could not be read or copied. Make sure it is available on this device, then select it again.</string>
+    <string name="library_checkpoint_notice">Open a chapter, explore its verse translations, and tap a verse to read. Search, saved passages, and audio are coming later.</string>
+    <string name="library_action_message">Saved passages and audio are not connected yet. You can browse, search and read sections now.</string>
+    <string name="library_info_title">Your library, on this device</string>
+    <string name="library_info_body">Import an English Vedabase .ivd library and tap a chapter or text to open it. A private, read-only copy stays on this device; the source is unchanged.\n\nSwipe between verses, scroll to read, and tap Synonyms to expand word meanings. Back returns to contents. Reference links, search, saved passages, and audio are not connected yet.</string>
+    <string name="library_about">About your library</string>
+    <string name="library_empty_language">On device</string>
+    <string name="library_featured">FROM YOUR LIBRARY</string>
+    <string name="library_footer">Original collection titles, read from your database. Content rights remain with their respective owners.</string>
+    <string name="library_source">Imported source</string>
+    <string name="library_offline">Available offline</string>
+    <string name="library_select">Choose active library</string>
+    <string name="library_filter_empty">No collections in this category.</string>
+    <string name="library_page_entry">Single entry</string>
+    <string name="library_default_language">English · en</string>
+    <string name="library_books_more">Books &amp; more</string>
+    <string name="home_featured">SCRIPTURES</string>
+    <string name="home_collections">COLLECTIONS</string>
+    <string name="home_more_collections">MORE COLLECTIONS</string>
+    <string name="home_group_books">BOOKS &amp; WRITINGS</string>
+    <string name="home_group_lectures">LECTURES &amp; BIOGRAPHIES</string>
+    <string name="home_group_songs">SONGS &amp; STUDY</string>
+    <string name="home_group_archive">ARCHIVE</string>
+    <string name="home_press_back_again">Press back again to exit</string>
+    <string name="home_subtitle_gita">The song of God · 18 chapters, 700 verses with purports</string>
+    <string name="home_subtitle_bhagavatam">The Bhāgavata Purāṇa · 12 cantos</string>
+    <string name="home_subtitle_caitanya">Life and teachings of Śrī Caitanya · Ādi, Madhya, Antya</string>
+    <plurals name="library_collection_count">
+        <item quantity="one">%1$d collection from your database</item>
+        <item quantity="other">%1$d collections from your database</item>
+    </plurals>
+    <plurals name="library_section_count">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <plurals name="count_books">
+        <item quantity="one">%1$d book</item>
+        <item quantity="other">%1$d books</item>
+    </plurals>
+    <plurals name="count_cantos">
+        <item quantity="one">%1$d canto</item>
+        <item quantity="other">%1$d cantos</item>
+    </plurals>
+    <plurals name="count_chapters">
+        <item quantity="one">%1$d chapter</item>
+        <item quantity="other">%1$d chapters</item>
+    </plurals>
+    <plurals name="count_verses">
+        <item quantity="one">%1$d verse</item>
+        <item quantity="other">%1$d verses</item>
+    </plurals>
+    <plurals name="count_texts">
+        <item quantity="one">%1$d text</item>
+        <item quantity="other">%1$d texts</item>
+    </plurals>
+</resources>

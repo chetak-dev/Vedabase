@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="annotation_default_color">Default highlight colour</string>
+    <string name="annotation_remove_highlight">Remove highlight</string>
+    <string name="annotation_note_too_long">Use at most %1$d characters. Your draft has not been shortened.</string>
+    <string name="annotation_note_failed">Couldn\'t save your note. Your draft is still here. Try again.</string>
+    <string name="annotation_undo">Undo</string>
+</resources>

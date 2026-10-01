@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="contents_introduction">Introduction</string>
+    <string name="contents_expand_introduction">Expand Introduction</string>
+    <string name="contents_collapse_introduction">Collapse Introduction</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preview_eyebrow">A LITTLE WISDOM, EVERY DAY</string>
+    <string name="preview_language">English</string>
+    <string name="preview_featured">A PLACE TO BEGIN</string>
+    <string name="preview_collections">Explore the collections</string>
+    <plurals name="preview_collection_count">
+        <item quantity="one">%1$d sample collection from your Vedabase</item>
+        <item quantity="other">%1$d sample collections from your Vedabase</item>
+    </plurals>
+    <string name="preview_all">All</string>
+    <string name="preview_books">Books</string>
+    <string name="preview_audio">Audio</string>
+    <string name="preview_correspondence">Letters</string>
+    <string name="preview_notice">Home design preview · book reading is not connected yet.</string>
+    <string name="preview_footer">A small first look, shaped with your feedback. More of your library will follow after this design is approved.</string>
+    <string name="preview_search_tab">Search</string>
+    <string name="preview_saved_tab">Saved · soon</string>
+    <string name="preview_action_message">Design preview only. Reading, search, and saved passages are not connected yet.</string>
+    <string name="preview_about">About this design preview</string>
+    <string name="preview_info_title">First look: your library</string>
+    <string name="preview_info_body">This checkpoint is for reviewing the home screen: layout, colours, text size, and collection cards.\n\nThe six sample collections use titles from your Vedabase database. Category filters work. Book reading, import, search, and saved passages are not connected yet.\n\nNo database is bundled or imported, and the original app and database are unchanged.</string>
+    <string name="preview_gita">Bhagavad-gītā As It Is</string>
+    <string name="preview_gita_detail">25 sections · with audio</string>
+    <string name="preview_bhagavatam">Śrīmad-Bhāgavatam</string>
+    <string name="preview_bhagavatam_detail">Bhāgavata Purāṇa · 12 cantos</string>
+    <string name="preview_caitanya">Śrī Caitanya-caritāmṛta</string>
+    <string name="preview_caitanya_detail">3 parts</string>
+    <string name="preview_other_books">Books by Śrīla Prabhupāda</string>
+    <string name="preview_other_books_detail">35 sections</string>
+    <string name="preview_transcripts">Audio transcripts</string>
+    <string name="preview_transcripts_detail">1966–1977 · chronological collection</string>
+    <string name="preview_letters">Correspondence</string>
+    <string name="preview_letters_detail">6,586 letters</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="more_study_heading">Your study collection</string>
+    <string name="more_study_body">Revisit a marked page, a meaningful passage, or a reflection.</string>
+    <string name="lookup_label">Lookup</string>
+    <string name="annotation_remove_note">Remove note</string>
+    <string name="annotation_remove_note_title">Remove note?</string>
+    <string name="annotation_remove_note_body">The note in %1$s will be removed from this device. Any highlight will be kept.</string>
+    <string name="annotation_remove_fill_body">The highlight in %1$s will be removed. Any note will be kept.</string>
+</resources>

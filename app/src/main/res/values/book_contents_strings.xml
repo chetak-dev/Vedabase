@@ -1,0 +1,8 @@
+<resources>
+    <string name="book_contents_expand">Expand %1$s</string>
+    <string name="book_contents_collapse">Collapse %1$s</string>
+    <string name="book_contents_read_start">Read from beginning of section</string>
+    <string name="book_contents_beginning">Beginning of book</string>
+    <string name="book_contents_collapsed">Collapsed</string>
+    <string name="book_contents_expanded">Expanded</string>
+</resources>

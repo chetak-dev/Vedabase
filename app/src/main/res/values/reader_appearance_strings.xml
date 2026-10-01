@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reader_settings">Reading settings</string>
+    <string name="reader_settings_back">Close reading settings</string>
+    <string name="reader_paper">Paper</string>
+    <string name="reader_font">Typeface</string>
+    <string name="reader_font_book">Book</string>
+    <string name="reader_font_book_detail">Serif English text like the printed volumes (Literata)</string>
+    <string name="reader_font_modern">Modern</string>
+    <string name="reader_font_modern_detail">Condensed sans-serif English text (Fira Sans Condensed)</string>
+    <string name="reader_paper_light">Light</string>
+    <string name="reader_paper_sepia">Sepia</string>
+    <string name="reader_paper_green">Green</string>
+    <string name="reader_paper_gray">Gray</string>
+    <string name="reader_paper_dark">Black</string>
+    <string name="reader_line_spacing">Line spacing</string>
+    <string name="reader_line_spacing_decrease">Decrease line spacing</string>
+    <string name="reader_line_spacing_increase">Increase line spacing</string>
+    <string name="reader_line_spacing_percent">%1$d%%</string>
+    <string name="reader_line_spacing_default">Default</string>
+    <string name="reader_line_spacing_reset">Reset line spacing to default (100%)</string>
+    <string name="book_loading_greeting">Hare Krishna!</string>
+    <string name="book_loading_body">Your eBook is loading</string>
+</resources>
