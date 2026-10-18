@@ -237,6 +237,28 @@ class DirectLeafReadingTest {
     }
 
     @Test
+    fun containerWithOnlyTextSubsectionsOpensAsOneReadingUnit() = runTest(StandardTestDispatcher()) {
+        val textSection = ContentNode(211, parent.record, "SYNONYMS", 211, 0, 4)
+        val text = ContentNode(212, parent.record, "TEXT", 212, 0, 5)
+        val fixture = Fixture(
+            this,
+            childLoader = { _, record -> if (record == parent.record) listOf(textSection, text) else tree.getValue(record) },
+            levelNamesLoader = { mapOf(2 to "LE_Chapter", 4 to "LE_Verse_Section", 5 to "LE_Verse_Text") },
+        )
+        fixture.navigator.setLibrary(LIBRARY_A, listOf(collection))
+        openAndRun(fixture.navigator, collection)
+        val ready = fixture.navigator.state
+
+        fixture.navigator.open(parent.record)
+        runCurrent()
+
+        assertSame(ready, fixture.navigator.state)
+        assertEquals(listOf(LIBRARY_A to parent), fixture.reads)
+        assertSame(ready, fixture.readParents.single())
+        assertTrue(fixture.changes.none { it.current == parent && !it.loading })
+    }
+
+    @Test
     fun chapterPreviewReadingTargetsStayDirectAndUnchangedWhenLeafReadingIsEnabled() = runTest(StandardTestDispatcher()) {
         val notes = ContentNode(600, parent.record, "Synthetic notes", 609, 0, 3)
         val chapterEntries = entries + notes
@@ -299,6 +321,7 @@ class DirectLeafReadingTest {
         scope: CoroutineScope,
         childLoader: suspend (String, Int) -> List<ContentNode> = { _, record -> tree.getValue(record) },
         overviewLoader: suspend (String, Int, List<ContentNode>) -> ChapterOverview? = { _, _, _ -> null },
+        levelNamesLoader: suspend (String) -> Map<Int, String> = { emptyMap() },
     ) {
         val calls = mutableListOf<Pair<String, Int>>()
         val overviewCalls = mutableListOf<Pair<String, Int>>()
@@ -320,6 +343,7 @@ class DirectLeafReadingTest {
                 reads += library to node
                 readParents += changes.last()
             },
+            loadLevelNames = levelNamesLoader,
         )
     }
 

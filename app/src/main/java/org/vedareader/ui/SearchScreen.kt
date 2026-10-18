@@ -19,6 +19,9 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,12 +39,14 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.launch
@@ -131,7 +136,7 @@ fun SearchScreen(
                 Row(
                     Modifier.fillMaxWidth()
                         .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-                        .padding(horizontal = 8.dp, vertical = 6.dp),
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     IconButton(onClick = onBack, modifier = Modifier.size(48.dp).testTag("search-back")) {
@@ -154,19 +159,20 @@ fun SearchScreen(
         bottomBar = {
             Column {
             if (busy && state.libraryId != null) Surface(
-                color = MaterialTheme.colorScheme.surface,
-                shadowElevation = 3.dp,
+                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                shadowElevation = 4.dp,
+                tonalElevation = 4.dp,
             ) {
                 Row(
                     Modifier.fillMaxWidth()
                         .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
                         .testTag(if (state.loadingMore) "search-loading-more" else "search-loading")
                         .semantics { liveRegion = LiveRegionMode.Polite },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 2.dp)
+                    CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.5.dp)
                     Text(stringResource(if (state.loadingMore) R.string.search_ui_loading_more else R.string.search_ui_searching),
                         Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
                     TextButton(onClick = onCancel, modifier = Modifier.heightIn(min = 48.dp).testTag("search-cancel")) {
@@ -194,7 +200,7 @@ fun SearchScreen(
             ) {
                 if (state.libraryId == null) {
                     item(key = "import") {
-                        SearchNotice(stringResource(R.string.search_ui_import_title), stringResource(R.string.search_ui_import_body), "search-import") {
+                        SearchNotice(stringResource(R.string.search_ui_import_title), stringResource(R.string.search_ui_import_body), "search-import", icon = Icons.Default.Search) {
                             TextButton(onClick = onBack, modifier = Modifier.heightIn(min = 48.dp)) {
                                 Text(stringResource(R.string.search_ui_back_to_library))
                             }
@@ -219,9 +225,10 @@ fun SearchScreen(
                                     modifier = Modifier.size(48.dp).testTag("search-clear-query"),
                                 ) { Icon(Icons.Default.Close, stringResource(R.string.search_ui_clear_query)) }
                             },
-                            singleLine = true, shape = RoundedCornerShape(18.dp),
+                            singleLine = true, shape = RoundedCornerShape(24.dp),
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                             keyboardActions = KeyboardActions(onSearch = { submit() }),
+                            textStyle = MaterialTheme.typography.bodyLarge,
                         )
                     }
                     // Keep suggestions next to the query, above the scope/mode controls and IME.
@@ -253,25 +260,25 @@ fun SearchScreen(
                             SearchTargets(state.target, onTarget)
                             SearchModes(state.mode, onMode)
                             Button(onClick = submit, enabled = canSearch,
-                                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("search-submit"),
-                                shape = RoundedCornerShape(14.dp)) {
-                                Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(20.dp))
+                                modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).testTag("search-submit"),
+                                shape = RoundedCornerShape(16.dp)) {
+                                Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(22.dp))
                                 Spacer(Modifier.width(8.dp))
-                                Text(stringResource(R.string.search_ui_submit))
+                                Text(stringResource(R.string.search_ui_submit), style = MaterialTheme.typography.titleSmall)
                             }
                         }
                     }
                     if (state.catalogLoading) item(key = "catalog-loading") {
                         SearchProgress(stringResource(if (state.resolvingContext) R.string.search_ui_context_loading
                             else R.string.search_ui_catalog_loading), "search-catalog-loading")
-                    } else if (state.catalogError) item(key = "catalog-error") {
-                        SearchNotice(stringResource(R.string.search_ui_catalog_error_title),
-                            stringResource(R.string.search_ui_catalog_error_body), "search-catalog-error") {
-                            TextButton(onClick = onRetryCatalog, modifier = Modifier.heightIn(min = 48.dp).testTag("search-retry-catalog")) {
-                                Text(stringResource(R.string.search_ui_retry_catalog))
+} else if (state.catalogError) item(key = "catalog-error") {
+                            SearchNotice(stringResource(R.string.search_ui_catalog_error_title),
+                                stringResource(R.string.search_ui_catalog_error_body), "search-catalog-error", icon = Icons.Filled.Info) {
+                                TextButton(onClick = onRetryCatalog, modifier = Modifier.heightIn(min = 48.dp).testTag("search-retry-catalog")) {
+                                    Text(stringResource(R.string.search_ui_retry_catalog))
+                                }
                             }
                         }
-                    }
                     if (visibleIssue != null) item(key = "error") {
                         SearchProblem(visibleIssue, refine, {
                             focusManager.clearFocus(); keyboard?.hide()
@@ -281,10 +288,13 @@ fun SearchScreen(
                     if (currentSubmission) {
                         item(key = "results-heading") {
                             Column(verticalArrangement = Arrangement.spacedBy(4.dp), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) {
-                                SearchHeading(stringResource(R.string.search_ui_passages_shown, state.results.size))
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Icon(Icons.Default.Menu, contentDescription = null, tint = ReadingColors.Header, modifier = Modifier.size(22.dp))
+                                    Text(stringResource(R.string.search_ui_passages_shown, state.results.size), style = MaterialTheme.typography.titleMedium)
+                                }
                                 Text(stringResource(R.string.search_ui_results_query, state.submittedQuery.orEmpty()),
-                                    style = MaterialTheme.typography.bodyMedium)
-                                Text(stringResource(R.string.search_ui_source_order), style = MaterialTheme.typography.bodySmall, color = ReadingColors.Muted)
+                                    style = MaterialTheme.typography.bodyMedium, color = ReadingColors.Muted)
+                                Text(stringResource(R.string.search_ui_source_order), style = MaterialTheme.typography.bodySmall, color = ReadingColors.Muted.copy(alpha = 0.7f))
                             }
                         }
                         items(state.results, key = { "result-${it.location.libraryId}-${it.location.position}" }) { hit ->
@@ -292,30 +302,38 @@ fun SearchScreen(
                         }
                         if (state.results.isEmpty() && !busy && visibleIssue == null && state.nextAfter == null) item(key = "empty") {
                             SearchNotice(stringResource(R.string.search_ui_empty_title),
-                                stringResource(R.string.search_ui_empty_body), "search-empty") {
-                                TextButton(onClick = refine, modifier = Modifier.heightIn(min = 48.dp).testTag("search-refine")) {
-                                    Text(stringResource(R.string.search_ui_refine))
-                                }
-                                if (state.selectedBooks.isNotEmpty()) TextButton(onClick = { onBooks(emptySet()) },
-                                    modifier = Modifier.heightIn(min = 48.dp).testTag("search-reset-scope")) {
-                                    Text(stringResource(R.string.search_ui_reset_scope))
+                                stringResource(R.string.search_ui_empty_body), "search-empty", icon = Icons.Default.Search) {
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Button(onClick = refine, modifier = Modifier.weight(1f).heightIn(min = 48.dp), shape = RoundedCornerShape(12.dp)) {
+                                        Text(stringResource(R.string.search_ui_refine))
+                                    }
+                                    if (state.selectedBooks.isNotEmpty()) OutlinedButton(onClick = { onBooks(emptySet()) },
+                                        modifier = Modifier.weight(1f).heightIn(min = 48.dp), shape = RoundedCornerShape(12.dp)) {
+                                        Text(stringResource(R.string.search_ui_reset_scope))
+                                    }
                                 }
                             }
                         }
                         if (state.nextAfter != null) item(key = "more") {
                             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 if (state.results.isEmpty()) Text(stringResource(R.string.search_ui_continue),
-                                    style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("search-continue"))
+                                    style = MaterialTheme.typography.bodyMedium, color = ReadingColors.Muted, modifier = Modifier.testTag("search-continue"))
                                 OutlinedButton(onClick = onLoadMore, enabled = !busy,
-                                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("search-more")) {
-                                    Text(stringResource(R.string.search_ui_show_more))
+                                    modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).testTag("search-more"),
+                                    shape = RoundedCornerShape(16.dp)) {
+                                    if (busy) {
+                                        CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp, color = ReadingColors.Header)
+                                        Spacer(Modifier.width(8.dp))
+                                    }
+                                    Text(stringResource(R.string.search_ui_show_more), style = MaterialTheme.typography.titleSmall)
                                 }
                             }
                         }
                     }
                     if (state.query.isBlank() && !busy && !state.resolvingContext && state.recent.isNotEmpty()) {
                         item(key = "recent-heading") {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Icon(Icons.Default.Refresh, contentDescription = null, tint = ReadingColors.Header, modifier = Modifier.size(22.dp))
                                 Text(stringResource(R.string.search_ui_recent), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
                                 TextButton(onClick = {
                                     focusManager.clearFocus(); keyboard?.hide(); confirmClearHistory = true
@@ -378,16 +396,26 @@ private fun SearchScopeSummary(state: SearchUiState, selectedRoots: Set<Int>, on
         else -> stringResource(R.string.search_ui_selected_count, selectedRoots.size)
     }
     val action = stringResource(R.string.search_ui_choose_scope)
-    OutlinedCard(onClick = onClick, enabled = !state.catalogLoading && !state.catalogError && !state.resolvingContext,
-        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("search-scope")
+    val enabled = !state.catalogLoading && !state.catalogError && !state.resolvingContext
+    Card(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).testTag("search-scope")
             .semantics { contentDescription = action; stateDescription = summary },
-        shape = RoundedCornerShape(14.dp), border = BorderStroke(1.dp, ReadingColors.Rule)) {
-        Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.5.dp, if (enabled) ReadingColors.Rule else ReadingColors.Rule.copy(alpha = 0.5f)),
+        colors = CardDefaults.cardColors(
+            containerColor = ReadingColors.Paper,
+            disabledContainerColor = ReadingColors.Chapter,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text(stringResource(R.string.search_ui_scope_label), style = MaterialTheme.typography.labelMedium, color = ReadingColors.Muted)
                 Text(summary, style = MaterialTheme.typography.bodyLarge)
             }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = ReadingColors.Muted)
         }
     }
 }
@@ -470,11 +498,14 @@ private fun SearchHeading(title: String) {
 }
 
 @Composable
-private fun SearchNotice(title: String, body: String, tag: String, actions: @Composable ColumnScope.() -> Unit = {}) {
+private fun SearchNotice(title: String, body: String, tag: String, icon: androidx.compose.ui.graphics.vector.ImageVector, actions: @Composable ColumnScope.() -> Unit = {}) {
     OutlinedCard(modifier = Modifier.fillMaxWidth().testTag(tag), shape = RoundedCornerShape(18.dp),
         border = BorderStroke(1.dp, ReadingColors.Rule)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SearchHeading(title)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Icon(icon, contentDescription = null, tint = ReadingColors.Header, modifier = Modifier.size(24.dp))
+                SearchHeading(title)
+            }
             Text(body, style = MaterialTheme.typography.bodyMedium)
             actions()
         }
@@ -492,15 +523,23 @@ private fun SearchProgress(label: String, tag: String) {
 
 @Composable
 private fun SearchQueryRow(label: String, detail: String?, tag: String, onClick: () -> Unit) {
-    OutlinedCard(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag(tag),
-        shape = RoundedCornerShape(14.dp), border = BorderStroke(1.dp, ReadingColors.Rule)) {
-        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(20.dp))
+    Card(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp).testTag(tag),
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, ReadingColors.Rule),
+        colors = CardDefaults.cardColors(
+            containerColor = ReadingColors.Paper,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+    ) {
+        Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Icon(Icons.Default.Search, contentDescription = null, tint = ReadingColors.Header, modifier = Modifier.size(22.dp))
             Column(Modifier.weight(1f)) {
                 Text(label, style = MaterialTheme.typography.bodyLarge)
                 if (detail != null) Text(detail, style = MaterialTheme.typography.labelMedium, color = ReadingColors.Muted)
             }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, modifier = Modifier.size(20.dp))
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = ReadingColors.Muted, modifier = Modifier.size(20.dp))
         }
     }
 }
@@ -517,7 +556,12 @@ private fun SearchProblem(issue: SearchIssue, onRefine: () -> Unit, onRetry: () 
         SearchIssue.TIMEOUT -> R.string.search_ui_timeout_body
         SearchIssue.UNAVAILABLE -> R.string.search_ui_unavailable_body
     }
-    SearchNotice(stringResource(title), stringResource(body), "search-error-${issue.name}") {
+    val icon = when (issue) {
+        SearchIssue.INVALID_QUERY -> Icons.Default.Info
+        SearchIssue.TIMEOUT -> Icons.Default.Refresh
+        SearchIssue.UNAVAILABLE -> Icons.Default.Refresh
+    }
+    SearchNotice(stringResource(title), stringResource(body), "search-error-${issue.name}", icon = icon) {
         if (issue != SearchIssue.INVALID_QUERY) TextButton(onClick = onRetry, enabled = retryEnabled,
             modifier = Modifier.heightIn(min = 48.dp).testTag("search-retry")) {
             Text(stringResource(R.string.search_ui_retry))
@@ -530,19 +574,29 @@ private fun SearchProblem(issue: SearchIssue, onRefine: () -> Unit, onRetry: () 
 
 @Composable
 private fun SearchPassage(hit: ScopedSearchHit, onClick: () -> Unit) {
-    val mark = SpanStyle(background = MaterialTheme.colorScheme.primaryContainer,
+    val mark = SpanStyle(background = ReadingColors.Accent.copy(alpha = 0.3f),
         color = ReadingColors.Ink, fontWeight = FontWeight.SemiBold)
     val snippet = remember(hit.snippet, hit.highlights, mark) { searchSnippet(hit, mark) }
     val action = stringResource(R.string.search_ui_open_passage, hit.location.title)
-    OutlinedCard(onClick = onClick,
+    Card(
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("search-result-${hit.location.position}")
             .semantics { onClick(label = action, action = null) },
-        shape = RoundedCornerShape(18.dp), border = BorderStroke(1.dp, ReadingColors.Rule)) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            Text(hit.bookTitle, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-            Text(hit.location.title, style = MaterialTheme.typography.titleMedium)
+        shape = RoundedCornerShape(20.dp),
+        border = BorderStroke(1.dp, ReadingColors.Rule),
+        colors = CardDefaults.cardColors(
+            containerColor = ReadingColors.Paper,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Icon(Icons.Default.Menu, contentDescription = null, tint = ReadingColors.Header, modifier = Modifier.size(18.dp))
+                Text(hit.bookTitle, style = MaterialTheme.typography.labelLarge.copy(color = ReadingColors.Header), maxLines = 1)
+            }
+            Text(hit.location.title, style = MaterialTheme.typography.titleMedium, maxLines = 2)
             // The repository supplies plain Unicode, never HTML; no maxLines/ellipsis on passages.
-            Text(snippet, style = MaterialTheme.typography.bodyLarge, color = ReadingColors.Ink,
+            Text(snippet, style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 24.sp), color = ReadingColors.Ink,
                 modifier = Modifier.testTag("search-snippet-${hit.location.position}"))
         }
     }

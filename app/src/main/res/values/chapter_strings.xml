@@ -2,7 +2,6 @@
 <resources>
     <string name="chapter_overview">CHAPTER OVERVIEW</string>
     <string name="chapter_translation_hint">Tap a verse to read its complete text and purport.</string>
-    <string name="chapter_translation_missing">No translation preview is available for this entry. Tap to read its original text.</string>
     <string name="chapter_read_verse">Read %1$s</string>
     <plurals name="chapter_verse_count">
         <item quantity="one">%1$d verse entry · original translations</item>

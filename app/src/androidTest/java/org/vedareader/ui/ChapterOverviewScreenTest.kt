@@ -309,10 +309,10 @@ class ChapterOverviewScreenTest {
     }
 
     @Test
-    fun missingTranslationUsesTheHintButTheSameRowStillOpensItsOriginalUnit() {
+    fun missingTranslationKeepsItsHeadingAndTheRowStillOpensItsOriginalUnit() {
         val fixture = showChapter()
         preview(fixture, missing).assertIsDisplayed()
-            .assertTextEquals(reference(missing), label(R.string.chapter_translation_missing))
+            .assertTextEquals(reference(missing))
         compose.onNodeWithTag("verse-translation-${missing.record}", useUnmergedTree = true).assertDoesNotExist()
         compose.onNodeWithTag("section-${missing.record}").assertDoesNotExist()
 

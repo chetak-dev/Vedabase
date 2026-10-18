@@ -254,9 +254,6 @@ private fun VerseTranslationRow(preview: VersePreview, onOpen: (Int) -> Unit) {
                 Text(preview.translation, Modifier.fillMaxWidth().padding(top = 2.dp).testTag("verse-translation-${preview.node.record}"),
                     fontFamily = AppFontFamily, fontSize = 16.sp, lineHeight = 23.sp, color = ReadingColors.Ink,
                     fontWeight = FontWeight.SemiBold)
-            } else {
-                Text(stringResource(R.string.chapter_translation_missing), Modifier.fillMaxWidth().padding(top = 2.dp), color = colors.onSurfaceVariant,
-                    fontSize = 15.sp, lineHeight = 22.sp)
             }
         }
         HorizontalDivider(color = colors.outlineVariant)

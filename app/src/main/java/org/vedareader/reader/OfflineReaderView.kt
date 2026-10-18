@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -19,6 +21,7 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.accessibility.AccessibilityNodeInfo
 import android.view.animation.PathInterpolator
+import android.widget.Toast
 import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -39,7 +42,7 @@ import kotlin.math.roundToInt
 /** A local document view, not a browser. It never launches URLs or exposes a JavaScript bridge. */
 class OfflineReaderView(context: Context) : WebView(context) {
     private companion object {
-        val OWN_ACTIONS = setOf(R.id.reader_highlight_action, R.id.reader_note_action)
+        val OWN_ACTIONS = setOf(R.id.reader_copy_action, R.id.reader_highlight_action, R.id.reader_note_action)
     }
 
     var onLinkUnavailable: () -> Unit = {}
@@ -490,6 +493,23 @@ class OfflineReaderView(context: Context) : WebView(context) {
                 if (isReleased || request != documentGeneration || !interactionEnabled) return@evaluateJavascript
                 val selection = ReaderHighlights.parseSelection(result) ?: return@evaluateJavascript
                 onHighlightSelected(selection, withNote)
+            }
+        } catch (_: Exception) {
+            onRead()
+        }
+    }
+
+    private fun requestSelectionCopy(onRead: () -> Unit) {
+        if (isReleased || !settings.javaScriptEnabled) { onRead(); return }
+        val request = documentGeneration
+        try {
+            evaluateJavascript(ReaderHighlights.SELECTED_TEXT) { result ->
+                onRead()
+                if (isReleased || request != documentGeneration || !interactionEnabled) return@evaluateJavascript
+                val text = ReaderHighlights.parseSelectedText(result) ?: return@evaluateJavascript
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return@evaluateJavascript
+                clipboard.setPrimaryClip(ClipData.newPlainText(context.getString(R.string.reader_copy), text))
+                Toast.makeText(context, R.string.reader_copied, Toast.LENGTH_SHORT).show()
             }
         } catch (_: Exception) {
             onRead()
@@ -1323,20 +1343,25 @@ class OfflineReaderView(context: Context) : WebView(context) {
             return addHighlightAction(menu) || changed
         }
 
-        /** Source text stays inside the app: no copy, share, web search or text-processing entries. */
+        /** Keep only the app's three supported selection actions. */
         private fun addHighlightAction(menu: Menu): Boolean {
             var changed = false
             for (index in menu.size() - 1 downTo 0) {
                 val item = menu.getItem(index)
                 if (item.itemId !in OWN_ACTIONS) { menu.removeItem(item.itemId); changed = true }
             }
+            if (menu.findItem(R.id.reader_copy_action) == null) {
+                menu.add(Menu.NONE, R.id.reader_copy_action, 0, R.string.reader_copy)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_WITH_TEXT)
+                changed = true
+            }
             if (menu.findItem(R.id.reader_highlight_action) == null) {
-                menu.add(Menu.NONE, R.id.reader_highlight_action, 0, R.string.reader_highlight)
+                menu.add(Menu.NONE, R.id.reader_highlight_action, 1, R.string.reader_highlight)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_WITH_TEXT)
                 changed = true
             }
             if (menu.findItem(R.id.reader_note_action) == null) {
-                menu.add(Menu.NONE, R.id.reader_note_action, 1, R.string.reader_note)
+                menu.add(Menu.NONE, R.id.reader_note_action, 2, R.string.reader_note)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_WITH_TEXT)
                 changed = true
             }
@@ -1346,8 +1371,11 @@ class OfflineReaderView(context: Context) : WebView(context) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             if (item.itemId !in OWN_ACTIONS) return delegate.onActionItemClicked(mode, item)
             // Read the DOM range before dismissing: finish() clears the selection in the renderer.
-            requestSelectionHighlight(withNote = item.itemId == R.id.reader_note_action) {
-                if (selectionMode === mode) mode.finish()
+            val finish = { if (selectionMode === mode) mode.finish() }
+            if (item.itemId == R.id.reader_copy_action) {
+                requestSelectionCopy(finish)
+            } else {
+                requestSelectionHighlight(withNote = item.itemId == R.id.reader_note_action, onRead = finish)
             }
             return true
         }

@@ -121,7 +121,9 @@ class BrowseNavigator(
                 // Never allow malformed input to loop back to an ancestor or cross branches.
                 check(children.all { it.parent == parent && it.record != 0 && path.none { ancestor -> ancestor.record == it.record } })
                 check(children.map { it.record }.distinct().size == children.size)
-                if (children.isEmpty() && readingFallback != null && onReadLeaf != null) {
+                val opensWholeUnit = children.isNotEmpty() &&
+                    children.all { levelNames?.second?.get(it.level)?.trim() in TEXT_SUBSECTION_LEVELS }
+                if ((children.isEmpty() || opensWholeUnit) && readingFallback != null && onReadLeaf != null) {
                     if (request == generation) {
                         publish(readingFallback)
                         onReadLeaf.invoke(library, path.last())
@@ -154,4 +156,8 @@ class BrowseNavigator(
     }
 
     private fun publish(value: BrowseState) { state = value; onChange(value) }
+
+    private companion object {
+        val TEXT_SUBSECTION_LEVELS = setOf("LE_Verse_Section", "LE_Verse_Text")
+    }
 }

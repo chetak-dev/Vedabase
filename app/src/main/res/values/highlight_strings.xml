@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="reader_copy">Copy</string>
+    <string name="reader_copied">Copied to clipboard</string>
     <string name="reader_highlight">Highlight</string>
     <string name="highlight_palette_new">Highlight colour</string>
     <string name="highlight_palette_edit">Edit highlight</string>

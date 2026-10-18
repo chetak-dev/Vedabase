@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Menu item id for the reader's native text-selection "Highlight" action. -->
+    <item name="reader_copy_action" type="id" />
     <item name="reader_highlight_action" type="id" />
     <item name="reader_note_action" type="id" />
 </resources>

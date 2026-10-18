@@ -29,6 +29,9 @@ internal object ReaderHighlights {
     /** The current selection in record/offset coordinates, or null when nothing is selected. */
     val SELECTION: String get() = "($SELECTION_RANGE)()"
 
+    /** The complete selected text for the native clipboard action. */
+    val SELECTED_TEXT: String get() = "(function(){var s=window.getSelection();return !s||s.isCollapsed?null:s.toString();})()"
+
     /** The highlight id under a native point, or null. Same viewport mapping as the hit test. */
     fun at(x: Int, y: Int, width: Int, height: Int): String =
         "($HIGHLIGHT_AT)(${x.coerceIn(0, width.coerceAtLeast(0))}," +
@@ -46,6 +49,12 @@ internal object ReaderHighlights {
         if (record <= 0 || endRecord < record || start < 0 || end < 0 || text.isEmpty()) return null
         val selection = HighlightSelection(record, start, endRecord, end, text)
         return selection.takeUnless { it.isEmpty }
+    }
+
+    fun parseSelectedText(result: String?): String? {
+        if (result.isNullOrBlank() || result == "null") return null
+        val text = runCatching { JSONArray("[$result]").getString(0) }.getOrNull()
+        return text?.takeIf { it.isNotBlank() }
     }
 
     /** Parses an evaluateJavascript result of [at]. */

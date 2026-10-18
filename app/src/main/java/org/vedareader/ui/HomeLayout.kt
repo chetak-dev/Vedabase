@@ -8,7 +8,7 @@ import org.vedareader.data.ContentNode
 internal object HomeLayout {
     private val featuredCodes = listOf("bgaiiwa", "sbbp", "scc")
     /** Source housekeeping roots ("What's New?", front matter, book reviews); "The End" has no children. */
-    private val hiddenCodes = setOf("wn", "bvfm", "br")
+    private val hiddenCodes = setOf("wn", "bvfm", "br", "cboar")
     private val numbered = Regex("^\\s*(\\d{2})\\.")
 
     data class Group(@StringRes val title: Int, val prefixes: List<String>, val tint: Int)
@@ -17,7 +17,8 @@ internal object HomeLayout {
     val groups = listOf(
         Group(R.string.home_group_books, listOf("05", "16", "27", "28", "24"), 0),
         Group(R.string.home_group_lectures, listOf("06", "22", "23"), 1),
-        Group(R.string.home_group_songs, listOf("25", "31"), 2),
+        // "35" is the Dham Yatra Guides collection appended by tools/build-pdf-library.py.
+        Group(R.string.home_group_songs, listOf("25", "31", "35", "13", "20", "21", "26"), 2),
     )
 
     data class Shelf(@StringRes val title: Int, val tint: Int, val collections: List<ContentNode>)
